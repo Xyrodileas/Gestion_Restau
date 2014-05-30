@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include "header2.html";
 //require_once ("projet_BDD.php");
 
