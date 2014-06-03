@@ -53,6 +53,12 @@
             <ul class="nav">
               <li class="active"><a href="index.php">Home</a></li>
               <li><a href="inscription.php">Inscription</a></li>
+              <li>Bienvenue <?php 
+              if(isset($_SESSION['membre_pseudo'])) {
+                echo $_SESSION['membre_pseudo'];
+              }
+
+                 ?></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -21,11 +21,13 @@ function utilisateur_sauvegarder()
 
 		if(!mysqli_query($link, $query)){
 			print("Erreur de connexion avec la base de donnée<br/>");
-            $_SESSION['membre_pseudo'] = $_POST['prenom'];
-            $_SESSION['membre_mdp'] = $_POST['password'];
+            
+            
         }
-		else
+		else{
 			print("utilisateur ajouté avec succès ! <br/><br/>");
+			$_SESSION['membre_pseudo'] = $_POST['prenom'];
+		}
 	}
 	else if($_GET['op'] == "edit")
 	{
