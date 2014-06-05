@@ -1,6 +1,22 @@
 <?php
 
+//Fonction permettant de récupérer la liste des restaurants
+function liste_restaurants(){
 
+	$link = mysqli_connect("localhost","root", "", "restau");
+	$sql = mysqli_query($link, "SELECT restaurant.idrestaurant, restaurant.nom restau, utilisateur.nom nom, utilisateur.prenom prenom, restaurant.adresse 
+									FROM `restaurant` 
+										INNER JOIN `utilisateur` ON `restaurant`.`idproprietaire` = `utilisateur`.`id` 
+											ORDER BY idrestaurant");
+  	while ($restaurant = mysqli_fetch_array($sql)) {
+	  	echo '<tr>';
+	    echo "<td>" .$restaurant["idrestaurant"]. "</td>";
+	    echo "<td>" .$restaurant["restau"]. "</td>";
+	    echo "<td>" .$restaurant["nom"]. " " .$restaurant["prenom"]. "</td>";
+	    echo "<td>" .$restaurant["prenom"]."</td>";
+	    echo '</tr>';
+	}
+}
 
 //Fonction d'inscription
 
@@ -114,19 +130,6 @@ function utilisateur_deconexion(){
 }
 
 //fin fonctions utilisateur
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>
