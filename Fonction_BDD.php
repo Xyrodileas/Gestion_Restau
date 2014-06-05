@@ -9,24 +9,29 @@ function utilisateur_sauvegarder()
 
 
 
-	$link = mysqli_connect("localhost","root", "", "restau");
+	
 
 	if($_GET['op'] == "add")
 	{
-		if(isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['password']) and isset($_POST['email']))
-			$query = "insert into UTILISATEUR (nom, prenom, mdp, email) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$_POST['password']."', '".$_POST['email']."');";
+		$link = mysqli_connect("localhost","root", "", "restau");
+
+		if(isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['password']) and isset($_POST['email'])){
+			$pas = hash('sha256', mysqli_real_escape_string($link, $_POST['password'])); 
+			$query = "insert into UTILISATEUR (nom, prenom, mdp, email) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$pas."', '".$_POST['email']."');";
+		}
 		else
 			print("Champs non rempli! <br/><br/>");
 		
 
-		if(!mysqli_query($link, $query)){
+		if(!($sql = mysqli_query($link, $query))){
 			print("Erreur de connexion avec la base de donnée<br/>");
             
             
         }
 		else{
 			print("utilisateur ajouté avec succès ! <br/><br/>");
-			$_SESSION['membre_pseudo'] = $_POST['prenom'];
+			utilisateur_login($_POST['email'], $_POST['password']);
+			exit;
 		}
 	}
 	else if($_GET['op'] == "edit")
@@ -40,6 +45,72 @@ function utilisateur_sauvegarder()
 	}
 	mysqli_close($link);
 	//orga_page();
+}
+
+
+//Fonction de login
+
+function utilisateur_loginverif(){
+	if($_GET['op'] == "login")
+	{
+		if(isset($_POST['email']) and isset($_POST['password'])){
+			utilisateur_login($_POST['email'], $_POST['password']);
+		}
+		else
+			print("Champs non rempli! <br/><br/>");
+	}
+}
+
+//fonction login
+function utilisateur_login($usr, $pas){
+	$link = mysqli_connect("localhost","root", "", "restau");
+
+
+
+		
+			$usr = mysqli_real_escape_string($link, $usr);
+    		$pas = hash('sha256', mysqli_real_escape_string($link, $pas)); // On hash le mot de passe en sha256
+
+			$sql = mysqli_query($link, "SELECT * FROM utilisateur 
+        							WHERE email='$usr' AND mdp='$pas'
+        								LIMIT 1"); 
+			if (mysqli_connect_errno()) {
+			    printf("Échec de la connexion : %s\n", mysqli_connect_error());
+			    exit();
+			}
+			if(!$sql)
+				echo "<p>user : $usr <br />
+						pass : $pas <br />
+						sql : $sql</p>";
+			//$query = "select * from UTILISATEUR where email='".$_POST['email']."' AND password='".$_POST['password']."';";
+			//if(mysqli_num_rows($sql) == 1){
+		        $row = mysqli_fetch_array($sql);
+		        $_SESSION['prenom'] = $row['prenom'];
+		        $_SESSION['nom'] = $row['nom'];
+		        $_SESSION['logged'] = TRUE;
+		        print("Connexion réussis ! <br/><br/>");
+		       
+		        exit;
+		    //}
+		    
+		
+		
+
+	
+
+}
+
+//fonction deconnexion
+function utilisateur_deconexion(){
+
+	if(isset($_GET['deco']) and $_GET['deco'] == "1"){
+		if(isset($_SESSION['logged'])){
+
+  			unset($_SESSION['logged']);
+  			unset($_SESSION['nom']);
+  			unset($_SESSION['prenom']);
+  		}
+  	}
 }
 
 //fin fonctions utilisateur

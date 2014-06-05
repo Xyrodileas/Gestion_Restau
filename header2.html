@@ -53,12 +53,21 @@
             <ul class="nav">
               <li class="active"><a href="index.php">Home</a></li>
               <li><a href="inscription.php">Inscription</a></li>
-              <li>Bienvenue <?php 
-              if(isset($_SESSION['membre_pseudo'])) {
-                echo $_SESSION['membre_pseudo'];
+              <li><?php 
+              if(isset($_SESSION['logged'])) {
+                echo 'Bienvenue '.$_SESSION['prenom'].' '.$_SESSION['nom'];
               }
+              else
+                echo '<li><a href="login.php">Login</a></li>'
 
                  ?></li>
+                 <li>
+              <?php
+              if(isset($_SESSION['logged'])) {
+                echo '<a href="index.php?deco=1">Deconnexion</a>';
+              }
+              ?>
+            </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
