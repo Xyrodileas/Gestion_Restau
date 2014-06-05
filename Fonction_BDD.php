@@ -94,25 +94,38 @@ function utilisateur_login($usr, $pas){
 			    printf("Échec de la connexion : %s\n", mysqli_connect_error());
 			    exit();
 			}
-			if(!$sql)
-				echo "<p>user : $usr <br />
-						pass : $pas <br />
-						sql : $sql</p>";
+
 			//$query = "select * from UTILISATEUR where email='".$_POST['email']."' AND password='".$_POST['password']."';";
 			//if(mysqli_num_rows($sql) == 1){
 		        $row = mysqli_fetch_array($sql);
 		        $_SESSION['prenom'] = $row['prenom'];
 		        $_SESSION['nom'] = $row['nom'];
 		        $_SESSION['logged'] = TRUE;
+		        $_SESSION['id'] = $row['id'];
+		       
 		        print("Connexion réussis ! <br/><br/>");
 		       
 		        exit;
 		    //}
 		    
-		
-		
+}
 
-	
+function info_utilisateur($id){
+
+	$link = mysqli_connect("localhost","root", "", "restau");
+
+
+			$sql = mysqli_query($link, "SELECT * FROM utilisateur 
+        							WHERE id='$id'
+        								LIMIT 1"); 
+			if (mysqli_connect_errno()) {
+			    printf("Échec de la connexion : %s\n", mysqli_connect_error());
+			    exit();
+			}
+
+
+		    $row = mysqli_fetch_array($sql);
+		    return $row;
 
 }
 
@@ -125,6 +138,7 @@ function utilisateur_deconexion(){
   			unset($_SESSION['logged']);
   			unset($_SESSION['nom']);
   			unset($_SESSION['prenom']);
+  			unset($_SESSION['id']);
   		}
   	}
 }
