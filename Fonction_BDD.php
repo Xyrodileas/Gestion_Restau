@@ -13,7 +13,7 @@ function liste_restaurants(){
 	    echo "<td>" .$restaurant["idrestaurant"]. "</td>";
 	    echo "<td>" .$restaurant["restau"]. "</td>";
 	    echo "<td>" .$restaurant["nom"]. " " .$restaurant["prenom"]. "</td>";
-	    echo "<td>" .$restaurant["prenom"]."</td>";
+	    echo "<td>" .$restaurant["adresse"]."</td>";
 	    echo '</tr>';
 	}
 }
