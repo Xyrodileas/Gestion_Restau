@@ -64,6 +64,15 @@ echo '<form class="form-horizontal" action="valider.php?op=add" method="POST">
   </div>
 </div>
 
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="telephone">telephone</label>
+  <div class="controls">
+    <input id="telephone" name="telephone" placeholder="514-666-6666" class="input-xlarge" required="" type="text">
+    
+  </div>
+</div>
+
 <!-- Button -->
 <div class="control-group">
   <label class="control-label" for="valider"></label>

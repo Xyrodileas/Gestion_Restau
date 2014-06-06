@@ -33,7 +33,7 @@ function utilisateur_sauvegarder()
 
 		if(isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['password']) and isset($_POST['email'])){
 			$pas = hash('sha256', mysqli_real_escape_string($link, $_POST['password'])); 
-			$query = "insert into UTILISATEUR (nom, prenom, mdp, email) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$pas."', '".$_POST['email']."');";
+			$query = "insert into UTILISATEUR (nom, prenom, mdp, email, adresse, datenaissance, telephone) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$pas."', '".$_POST['email']."', '".$_POST['adresse']."', '".$_POST['datenaissance']."', '".$_POST['telephone']."');";
 		}
 		else
 			print("Champs non rempli! <br/><br/>");
