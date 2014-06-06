@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 06 Juin 2014 à 15:54
+-- Généré le :  Ven 06 Juin 2014 à 16:32
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -72,7 +72,7 @@ INSERT INTO `utilisateur` (`nom`, `prenom`, `mdp`, `email`, `id`, `telephone`, `
 ('bla', 'bla', 'disque', 'bla@bla.com', 4, 0, '', '0000-00-00'),
 ('Alexis', 'Vuillaume', '4df3c3f68fcc83b27e9d42c90431a72499f17875c81a599b566c9889b9696703', 'pop3@pop.com', 26, 0, '', '0000-00-00'),
 ('Salut', 'Salut', '4df3c3f68fcc83b27e9d42c90431a72499f17875c81a599b566c9889b9696703', 'pop3@pop.com', 27, 0, '', '0000-00-00'),
-('Vuillaume', 'Alexis', '4df3c3f68fcc83b27e9d42c90431a72499f17875c81a599b566c9889b9696703', 'bla@blabla.com', 28, 0, '1114 rue du fort', '0000-00-00');
+('Vuillaume', 'Alexis', '4df3c3f68fcc83b27e9d42c90431a72499f17875c81a599b566c9889b9696703', 'bla@blabla.com', 28, 54487448, '1114 rue du fort', '1993-11-12');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
