@@ -32,8 +32,10 @@ function utilisateur_sauvegarder()
 		$link = mysqli_connect("localhost","root", "", "restau");
 
 		if(isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['password']) and isset($_POST['email'])){
+			$array_date_naissance=explode("/",$_POST['datenaissance']);
+			$dateNaissance_mysql=$array_date_naissance[2]."-".$array_date_naissance[1]."-".$array_date_naissance[0];
 			$pas = hash('sha256', mysqli_real_escape_string($link, $_POST['password'])); 
-			$query = "insert into UTILISATEUR (nom, prenom, mdp, email, adresse, datenaissance, telephone) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$pas."', '".$_POST['email']."', '".$_POST['adresse']."', '".$_POST['datenaissance']."', '".$_POST['telephone']."');";
+			$query = "insert into UTILISATEUR (nom, prenom, mdp, email, adresse, datenaissance, telephone) values ('".$_POST['nom']."', '".$_POST['prenom']."', '".$pas."', '".$_POST['email']."', '".$_POST['adresse']."', '".$dateNaissance_mysql."', '".$_POST['telephone']."');";
 		}
 		else
 			print("Champs non rempli! <br/><br/>");
@@ -52,12 +54,16 @@ function utilisateur_sauvegarder()
 	}
 	else if($_GET['op'] == "edit")
 	{
-		//$query = "update utilisateur set nom_utilisateur='".$_POST['nom']."', adresse_utilisateur='".$_POST['adresse']."', codePostal_utilisateur=".$_POST['cp'].", ville_utilisateur='".$_POST['ville']."', telephone_utilisateur=".$_POST['tel'].", mail_utilisateur='".$_POST['mail']."', siret_utilisateur='".$_POST['siret']."', web_utilisateur='".$_POST['web']."' where id_utilisateur=".$_GET['id'].";";
+		$array_date_naissance=explode("/",$_POST['datenaissance']);
+		$dateNaissance_mysql=$array_date_naissance[2]."-".$array_date_naissance[1]."-".$array_date_naissance[0];
+		$link = mysqli_connect("localhost","root", "", "restau");
+		$query = "update utilisateur set nom='".$_POST['nom']."', adresse='".$_POST['adresse']."', email='".$_POST['email']."', 
+						datenaissance='".$dateNaissance_mysql."', telephone='".$_POST['telephone']."' where id=".$_POST['id'].";";
 
-		//if(!mysqli_query($link, $query))
-		//	print("Erreur de connexion avec la base de donnée<br/>");
-		//else
-		//	print("utilisateur modifié avec succès ! <br/><br/>");
+		if(!mysqli_query($link, $query))
+			print("Erreur de connexion avec la base de donnée<br/>");
+		else
+			print("utilisateur modifié avec succès ! <br/><br/>");
 	}
 	mysqli_close($link);
 	//orga_page();
