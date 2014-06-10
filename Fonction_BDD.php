@@ -18,6 +18,18 @@ function liste_restaurants(){
 	}
 }
 
+function select_restaurants(){
+
+	$link = mysqli_connect("localhost","root", "", "restau");
+	$sql = mysqli_query($link, "SELECT restaurant.idrestaurant, restaurant.nom
+									FROM `restaurant` 
+										ORDER BY idrestaurant");
+  	while ($restaurant = mysqli_fetch_array($sql)) {
+  		
+  		echo '<option value="'.$restaurant["idrestaurant"].'">'.$restaurant["nom"].'</option>';
+	}
+}
+
 //Fonction d'inscription
 
 function utilisateur_sauvegarder()
