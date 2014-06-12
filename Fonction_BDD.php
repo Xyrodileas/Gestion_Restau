@@ -30,6 +30,61 @@ function select_restaurants(){
 	}
 }
 
+
+//Fonction permettant de gérer un restaurant
+
+function gestion_restaurant(){
+
+	if($_GET['op'] == "addrestau")
+	{
+		$link = mysqli_connect("localhost","root", "", "restau");
+
+		if(isset($_POST['nom']) and isset($_POST['description']) and isset($_POST['specialite']) and isset($_POST['restaurateur'])){
+			
+			$query = "insert into RESTAURANT (nom, description, specialite, idproprietaire, idrestaurateur, adresse) values ('".$_POST['nom']."', '".$_POST['description']."', '".$_POST['specialite']."', '".$_SESSION['id']."', '".$_POST['restaurateur']."', '".$_POST['adresse']."');";
+		}
+		else
+			print("Champs non rempli! <br/><br/>");
+		
+
+		if(!($sql = mysqli_query($link, $query))){
+			print("Erreur de connexion avec la base de donnée<br/>");
+        }
+		else{
+			print("Restaurant ajouté avec succès ! <br/><br/>");
+			exit;
+		}
+	}
+	else if($_GET['op'] == "editrestau")
+	{
+
+		$link = mysqli_connect("localhost","root", "", "restau");
+		$query = "update RESTAURANT set adresse='".$_POST['adresse']."', description='".$_POST['description']."', 
+						specialite='".$_POST['specialite']."', idrestaurateur='".$_POST['restaurateur']."' where id=".$_POST['restaurant'].";";
+
+		if(!mysqli_query($link, $query))
+			print("Erreur de connexion avec la base de donnée<br/>");
+		else
+			print("Restaurant modifié avec succès ! <br/><br/>");
+	}
+	mysqli_close($link);
+
+}
+
+//Selectionner les utilisateurs
+function select_utilisateurs(){
+
+	$link = mysqli_connect("localhost","root", "", "restau");
+	$sql = mysqli_query($link, "SELECT id, nom, prenom
+									FROM `utilisateur` 
+										ORDER BY id");
+  	while ($utilisateur = mysqli_fetch_array($sql)) {
+  		
+  		echo '<option value="'.$utilisateur["id"].'" id="utilisateur'.$utilisateur["id"].'">'.$utilisateur["nom"].' '.$utilisateur["prenom"].'</option>
+  		';
+	}
+}
+
 //Fonction d'inscription
 
 function utilisateur_sauvegarder()

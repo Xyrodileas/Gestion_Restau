@@ -3,11 +3,11 @@ session_start();
 include "header2.html";
 require_once ("Fonction_BDD.php");
 
-
+// Contient l'ID
 $row = info_utilisateur($_SESSION['id']);
 if($row['rang'] == 3){
 
-echo '<form class="form-horizontal">
+echo '<form class="form-horizontal" action="valider.php?opp=addrestau" method="POST">
 <fieldset>
 
 <!-- Form Name -->
@@ -34,7 +34,7 @@ echo '<form class="form-horizontal">
 <div class="control-group">
   <label class="control-label" for="type">Spécialité</label>
   <div class="controls">
-    <input id="type" name="type" placeholder="Spécialité" class="input-xlarge" type="text">
+    <input id="specialite" name="specialite" placeholder="Spécialité" class="input-xlarge" type="text">
     
   </div>
 </div>
@@ -43,10 +43,10 @@ echo '<form class="form-horizontal">
 <div class="control-group">
   <label class="control-label" for="restaurateur">Restaurateur</label>
   <div class="controls">
-    <select id="restaurateur" name="restaurateur" class="input-xlarge">
-      <option>Bla</option>
-      <option>bla bla</option>
-    </select>
+    <select id="restaurateur" name="restaurateur" class="input-xlarge">';
+      select_utilisateurs();
+
+    echo '</select>
   </div>
 </div>
 
@@ -64,7 +64,7 @@ echo '<form class="form-horizontal">
 
 echo '<br /> <br />';
 
-echo '<form name="modification_restaurant" class="form-horizontal" action="ajax.php" method="post">
+echo '<form name="modification_restaurant" class="form-horizontal" action="valider.php?opp=editrestau" method="post">
 <fieldset>
 
 <!-- Form Name -->
@@ -87,7 +87,7 @@ select_restaurants();
 <div class="control-group">
   <label class="control-label" >Text Area</label>
   <div class="controls">                     
-    <textarea id="textarea" name="descriptionmodif">default text</textarea>
+    <textarea id="descriptionmodif" name="descriptionmodif">default text</textarea>
   </div>
 </div>
 
@@ -95,7 +95,7 @@ select_restaurants();
 <div class="control-group">
   <label class="control-label" for="type">Spécialité</label>
   <div class="controls">
-    <input id="type" name="type" placeholder="Spécialité" class="input-xlarge" type="text">
+    <input id="specialite" name="specialite" placeholder="Spécialité" class="input-xlarge" type="text">
     
   </div>
 </div>
@@ -104,10 +104,10 @@ select_restaurants();
 <div class="control-group">
   <label class="control-label" for="restaurateur">Restaurateur</label>
   <div class="controls">
-    <select id="restaurateur" name="restaurateur" class="input-xlarge">
-      <option>Bla</option>
-      <option>bla bla</option>
-    </select>
+    <select id="restaurateur" name="restaurateur" class="input-xlarge">';
+      select_utilisateurs();
+      echo '
+      </select>
   </div>
 </div>
 
