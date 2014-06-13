@@ -1,7 +1,7 @@
 <?php 
 if(isset($_GET['idrestau'])){
 	$link = mysqli_connect("localhost","root", "", "restau");
-		$sql = mysqli_query($link, "SELECT restaurant.nom, restaurant.description, restaurant.specialite, utilisateur.id idrestaurateur, utilisateur.nom, utilisateur.prenom
+		$sql = mysqli_query($link, "SELECT restaurant.nom, restaurant.description, restaurant.specialite, restaurant.adresse, utilisateur.id idrestaurateur, utilisateur.nom, utilisateur.prenom
 										FROM `restaurant`, `utilisateur`
 												WHERE idrestaurant=".$_GET['idrestau']." AND restaurant.idrestaurateur=utilisateur.id");
 

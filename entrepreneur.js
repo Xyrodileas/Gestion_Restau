@@ -11,6 +11,7 @@ $(document).ready(function() {
                     var y = x.concat(json.idrestaurateur);
                     document.getElementById(y).selected='selected';
                     document.forms["modification_restaurant"].elements["specialite"].value=json.specialite;
+                    document.forms["modification_restaurant"].elements["adresse"].value=json.adresse;
 
                     
 

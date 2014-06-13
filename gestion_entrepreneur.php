@@ -7,7 +7,7 @@ require_once ("Fonction_BDD.php");
 $row = info_utilisateur($_SESSION['id']);
 if($row['rang'] == 3){
 
-echo '<form class="form-horizontal" action="valider.php?opp=addrestau" method="POST">
+echo '<form class="form-horizontal" action="valider.php?op=addrestau" method="POST">
 <fieldset>
 
 <!-- Form Name -->
@@ -39,6 +39,16 @@ echo '<form class="form-horizontal" action="valider.php?opp=addrestau" method="P
   </div>
 </div>
 
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="type">Adresse</label>
+  <div class="controls">
+    <input id="adresse" name="adresse" placeholder="Adresse" class="input-xlarge" type="text">
+    
+  </div>
+</div>
+
+
 <!-- Select Basic -->
 <div class="control-group">
   <label class="control-label" for="restaurateur">Restaurateur</label>
@@ -64,7 +74,7 @@ echo '<form class="form-horizontal" action="valider.php?opp=addrestau" method="P
 
 echo '<br /> <br />';
 
-echo '<form name="modification_restaurant" class="form-horizontal" action="ajax.php" method="post">
+echo '<form name="modification_restaurant" class="form-horizontal" action="valider.php?op=editrestau" method="POST">
 <fieldset>
 
 <!-- Form Name -->
@@ -100,6 +110,16 @@ select_restaurants();
   </div>
 </div>
 
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="type">Adresse</label>
+  <div class="controls">
+    <input id="adresse" name="adresse" placeholder="Adresse" class="input-xlarge" type="text">
+    
+  </div>
+</div>
+
 <!-- Select Basic -->
 <div class="control-group">
   <label class="control-label" for="restaurateur">Restaurateur</label>
@@ -119,10 +139,45 @@ select_restaurants();
   </div>
 </div>
 
+
 </fieldset>
 </form>
 
 ';
+
+
+echo '<form name="modification_restaurant" class="form-horizontal" action="valider.php?op=deleterestau" method="POST">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Formulaire de suppression d\'un restaurant</legend>
+
+<!-- Select Basic -->
+<div class="control-group">
+  <label class="control-label" for="restaurant">Restaurant</label>
+  <div class="controls">
+    <select id="restaurant" class="restau" name="restaurant" class="input-xlarge">
+    <option></option>';
+
+select_restaurants();
+
+    echo '</select>
+  </div>
+</div>
+
+
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="Supprimer"></label>
+  <div class="controls">
+    <button id="supprimer" name="supprimer" class="btn btn-danger">Supprimer</button>
+  </div>
+</div>
+
+
+</fieldset>
+</form>';
 
 
 }

@@ -39,9 +39,9 @@ function gestion_restaurant(){
 	{
 		$link = mysqli_connect("localhost","root", "", "restau");
 
-		if(isset($_POST['nom']) and isset($_POST['description']) and isset($_POST['specialite']) and isset($_POST['restaurateur'])){
+		if(isset($_POST['nom_restaurant']) and isset($_POST['description']) and isset($_POST['specialite']) and isset($_POST['restaurateur'])){
 			
-			$query = "insert into RESTAURANT (nom, description, specialite, idproprietaire, idrestaurateur, adresse) values ('".$_POST['nom']."', '".$_POST['description']."', '".$_POST['specialite']."', '".$_SESSION['id']."', '".$_POST['restaurateur']."', '".$_POST['adresse']."');";
+			$query = "insert into RESTAURANT (nom, description, specialite, idproprietaire, idrestaurateur, adresse) values ('".$_POST['nom_restaurant']."', '".$_POST['description']."', '".$_POST['specialite']."', '".$_SESSION['id']."', '".$_POST['restaurateur']."', '".$_POST['adresse']."');";
 		}
 		else
 			print("Champs non rempli! <br/><br/>");
@@ -59,13 +59,29 @@ function gestion_restaurant(){
 	{
 
 		$link = mysqli_connect("localhost","root", "", "restau");
-		$query = "update RESTAURANT set adresse='".$_POST['adresse']."', description='".$_POST['description']."', 
-						specialite='".$_POST['specialite']."', idrestaurateur='".$_POST['restaurateur']."' where id=".$_POST['restaurant'].";";
+		$query = "update RESTAURANT set adresse='".$_POST['adresse']."', description='".$_POST['descriptionmodif']."', 
+						specialite='".$_POST['specialite']."', idrestaurateur='".$_POST['restaurateur']."' where idrestaurant=".$_POST['restaurant'].";";
+
+		
 
 		if(!mysqli_query($link, $query))
 			print("Erreur de connexion avec la base de donnée<br/>");
 		else
 			print("Restaurant modifié avec succès ! <br/><br/>");
+	}
+	else if($_GET['op'] == "deleterestau")
+	{
+
+		$link = mysqli_connect("localhost","root", "", "restau");
+		$query = "DELETE FROM RESTAURANT
+					WHERE idrestaurant=".$_POST['restaurant'].";";
+
+		
+
+		if(!mysqli_query($link, $query))
+			print("Erreur de connexion avec la base de donnée<br/>");
+		else
+			print("Restaurant supprimé avec succès ! <br/><br/>");
 	}
 	mysqli_close($link);
 
@@ -123,17 +139,20 @@ function utilisateur_sauvegarder()
 
 		if(!($sql = mysqli_query($link, $query))){
 			print("Erreur de connexion avec la base de donnée<br/>");
-            
+            mysqli_close($link);
             
         }
 		else{
 			print("utilisateur ajouté avec succès ! <br/><br/>");
 			utilisateur_login($_POST['email'], $_POST['password']);
+			mysqli_close($link);
 			exit;
 		}
+
 	}
 	else if($_GET['op'] == "edit")
 	{
+		$link = mysqli_connect("localhost","root", "", "restau");
 		$array_date_naissance=explode("/",$_POST['datenaissance']);
 		$dateNaissance_mysql=$array_date_naissance[2]."-".$array_date_naissance[1]."-".$array_date_naissance[0];
 		$link = mysqli_connect("localhost","root", "", "restau");
@@ -144,8 +163,9 @@ function utilisateur_sauvegarder()
 			print("Erreur de connexion avec la base de donnée<br/>");
 		else
 			print("utilisateur modifié avec succès ! <br/><br/>");
+		mysqli_close($link);
 	}
-	mysqli_close($link);
+	
 	//orga_page();
 }
 
