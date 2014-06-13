@@ -9,7 +9,7 @@ $(document).ready(function() {
                     document.forms["modification_restaurant"].elements["descriptionmodif"].value=json.description;
                     var x = "utilisateur";
                     var y = x.concat(json.idrestaurateur);
-                    document.getElementById(y).selected = 'selected';
+                    document.getElementById(y).selected='selected';
                     document.forms["modification_restaurant"].elements["specialite"].value=json.specialite;
 
                     

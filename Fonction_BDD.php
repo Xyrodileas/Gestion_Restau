@@ -80,6 +80,19 @@ function select_utilisateurs(){
 										ORDER BY id");
   	while ($utilisateur = mysqli_fetch_array($sql)) {
   		
+  		echo '<option value="'.$utilisateur["id"].'" id="'.$utilisateur["id"].'">'.$utilisateur["nom"].' '.$utilisateur["prenom"].'</option>
+  		';
+	}
+}
+//Selectionner les utilisateurs
+function select_utilisateurs_edition(){
+
+	$link = mysqli_connect("localhost","root", "", "restau");
+	$sql = mysqli_query($link, "SELECT id, nom, prenom
+									FROM `utilisateur` 
+										ORDER BY id");
+  	while ($utilisateur = mysqli_fetch_array($sql)) {
+  		
   		echo '<option value="'.$utilisateur["id"].'" id="utilisateur'.$utilisateur["id"].'">'.$utilisateur["nom"].' '.$utilisateur["prenom"].'</option>
   		';
 	}

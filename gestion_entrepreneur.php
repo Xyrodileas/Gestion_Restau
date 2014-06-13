@@ -3,7 +3,7 @@ session_start();
 include "header2.html";
 require_once ("Fonction_BDD.php");
 
-// Contient l'ID
+
 $row = info_utilisateur($_SESSION['id']);
 if($row['rang'] == 3){
 
@@ -64,7 +64,7 @@ echo '<form class="form-horizontal" action="valider.php?opp=addrestau" method="P
 
 echo '<br /> <br />';
 
-echo '<form name="modification_restaurant" class="form-horizontal" action="valider.php?opp=editrestau" method="post">
+echo '<form name="modification_restaurant" class="form-horizontal" action="ajax.php" method="post">
 <fieldset>
 
 <!-- Form Name -->
@@ -105,7 +105,7 @@ select_restaurants();
   <label class="control-label" for="restaurateur">Restaurateur</label>
   <div class="controls">
     <select id="restaurateur" name="restaurateur" class="input-xlarge">';
-      select_utilisateurs();
+      select_utilisateurs_edition();
       echo '
       </select>
   </div>
