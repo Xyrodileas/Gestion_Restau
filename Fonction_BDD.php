@@ -1,5 +1,76 @@
 <?php
 
+
+//Fonction permettant de récupérer le menu d'un restaurant
+
+function menu_restaurant($id){
+
+	$link = mysqli_connect("localhost","root", "", "restau");
+
+	$sqlrest = mysqli_query($link, "SELECT restaurant.nom nom_restau 
+									FROM `restaurant`
+											WHERE restaurant.idrestaurant=".$id);
+  	while ($rest = mysqli_fetch_array($sqlrest)) {
+  		echo '<h1>Carte de '.$rest['nom_restau'].'</h1>';
+	}
+
+	$sql = mysqli_query($link, "SELECT idMenu, menu.nomMenu, menu.descriptionMenu 
+									FROM `menu`
+											WHERE menu.idRestaurant=".$id);
+  	while ($lesmenu = mysqli_fetch_array($sql)) {
+  		echo '
+<div class="container">
+
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">'.$lesmenu["nomMenu"].'</h3>
+                <h6>'.$lesmenu["descriptionMenu"].'</h6>
+                <div class="pull-left">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="ID" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Nom" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Description" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Prix" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>';
+
+		$sql2 = mysqli_query($link, "SELECT plat.idPlat, plat.nomPlat, plat.descriptionPlat, plat.prixPlat 
+										FROM `menu`
+											INNER JOIN `plat` ON `menu`.`idMenu` = `plat`.`idMenu` 
+												WHERE menu.idMenu=".$lesmenu["idMenu"]);
+	  	while ($menu = mysqli_fetch_array($sql2)) {
+		  	echo '<tr>';
+		    echo "<td>" .$menu["idPlat"]. "</td>";
+		    echo "<td>" .$menu["nomPlat"]. "</td>";
+		    echo "<td>" .$menu["descriptionPlat"]. " </td>";
+		    echo "<td>" .$menu["prixPlat"]." $</td>";
+		    echo '</tr>';
+		}
+		echo'					</tbody>
+							            </table>
+							        </div>
+							    </div>
+							</div>';
+	}	
+
+	                
+
+
+
+
+
+
+
+}
+
 //Fonction permettant de récupérer la liste des restaurants
 function liste_restaurants(){
 
@@ -10,8 +81,8 @@ function liste_restaurants(){
 											ORDER BY idrestaurant");
   	while ($restaurant = mysqli_fetch_array($sql)) {
 	  	echo '<tr>';
-	    echo "<td>" .$restaurant["idrestaurant"]. "</td>";
-	    echo "<td>" .$restaurant["restau"]. "</td>";
+	    echo '<td>'.$restaurant["idrestaurant"]. '</td>';
+	    echo '<td> <a href="menu.php?id_restaurant='.$restaurant["idrestaurant"]. '">' .$restaurant["restau"]. '</a></td>';
 	    echo "<td>" .$restaurant["nom"]. " " .$restaurant["prenom"]. "</td>";
 	    echo "<td>" .$restaurant["adresse"]."</td>";
 	    echo '</tr>';
